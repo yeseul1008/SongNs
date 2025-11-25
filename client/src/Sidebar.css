@@ -1,0 +1,30 @@
+/* src/Sidebar.css (또는 src/components/Sidebar.css) */
+
+.sidebar-icon-wrapper {
+  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  
+  /* 이미지의 연두색 테두리 하이라이트 효과 */
+  box-shadow: 0 0 0 5px #c8e6c9; 
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+/* 호버 시 살짝 떠오르는 효과 */
+.icon-circle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 5px #a5d6a7; 
+}

@@ -1,0 +1,21 @@
+.searchContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+input {
+  width: 250px;
+  height: 35px;
+  border-radius: 20px;
+  border: 2px solid #bbb;
+  padding: 5px 15px;
+}
+
+.searchBtn {
+  background: #fff;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
