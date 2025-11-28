@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Typography, Box, Avatar, Grid, Paper, ImageList, ImageListItem } from '@mui/material';
+import { Container, Typography, Box, Avatar, Grid, Paper, ImageList, ImageListItem, Divider } from '@mui/material';
+
 import { jwtDecode } from "jwt-decode";
+import { Button } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 
 function MyPage() {
@@ -45,8 +47,7 @@ function MyPage() {
                     setFeedList(data.list); // feedList에 저장
                 });
         } else {
-            alert("로그인 후 이용해주세요.");
-            navigate("/");
+
         }
     }
 
@@ -57,13 +58,13 @@ function MyPage() {
 
     return (
         <Container maxWidth="md">
-            <Box            
+            <Box
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
                 justifyContent="flex-start"
-                minHeight="100vh"
-                sx={{ padding: '20px', marginTop: 7 }}
+                // minHeight="100vh"
+                sx={{ padding: '20px', marginTop: 3 }}
             >
                 <Paper elevation={3} sx={{
                     padding: '20px', borderRadius: '15px', width: '100%', border: "1px solid #000000",
@@ -71,46 +72,90 @@ function MyPage() {
                 }}>
                     {/* 프로필 정보 상단 배치 */}
                     <Box display="flex" flexDirection="column" alignItems="center" sx={{ marginBottom: 3 }}>
-                        <Avatar
-                            alt="프로필 이미지"
-                            src={user?.PROFILE_IMG}
-                            sx={{ width: 100, height: 100, marginBottom: 2 }}
-                        />
+                        <Box
+                            sx={{
+                                width: 108, // 바깥 테두리
+                                height: 108,
+                                borderRadius: "50%",
+                                backgroundColor: "black", // 바깥 테두리
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                marginBottom: 2,
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    width: 104,   // 안쪽 테두리 두께 확보
+                                    height: 104,
+                                    borderRadius: "50%",
+                                    background: "linear-gradient(to top, #97E646, #ffffff)",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    padding: "5px", // 사진과 테두리 사이 여백
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        width: "100%",
+                                        height: "100%",
+                                        borderRadius: "50%",
+                                        overflow: "hidden",
+                                    }}
+                                >
+                                    <img
+                                        src={user?.PROFILE_IMG ? user.PROFILE_IMG : "/기본이미지.jpg"}
+                                        alt="프로필 이미지"
+                                        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                                    />
+                                </Box>
+                            </Box>
+                        </Box>
+
                         <Typography variant="h5">{user?.NICKNAME}</Typography>
                         <Typography variant="body2" color="text.secondary">
                             @{user?.USER_ID}
                         </Typography>
 
                         <Box sx={{ marginTop: 1, display: "flex", gap: 2 }}>
-                            <button
-                                style={{
-                                    padding: "8px 16px",
-                                    borderRadius: "8px",
-                                    border: "1px solid #000000",
-                                    background: "linear-gradient(to bottom, #ffffff 0%, #FEFF66 100%)",
-                                    color: "#000000",
-                                    cursor: "pointer",
-                                    fontSize: "14px"
+                            <Button
+                                sx={{
+                                    border: '2px solid #000',
+                                    borderRadius: '50px',
+                                    textTransform: 'none',
+                                    fontSize: '14px',
+                                    color: '#000',
+                                    padding: '6px 12px',
+                                    background: "linear-gradient(to bottom, #ffffff 0%, #97E646 100%)",
+                                    "&:hover": {
+                                        background: "linear-gradient(to bottom, #ffffff 0%, #b6f264 100%)",
+                                        boxShadow: 'none',
+                                    }
                                 }}
                                 onClick={() => navigate("/Register")}
                             >
                                 게시글 추가
-                            </button>
+                            </Button>
 
-                            <button
-                                style={{
-                                    padding: "8px 16px",
-                                    borderRadius: "8px",
-                                    border: "1px solid #000000",
-                                    background: "linear-gradient(to bottom, #ffffff 0%, #FEFF66 100%)",
-                                    color: "#000000",
-                                    cursor: "pointer",
-                                    fontSize: "14px"
+                            <Button
+                                sx={{
+                                    border: '2px solid #000',
+                                    borderRadius: '50px',
+                                    textTransform: 'none',
+                                    fontSize: '14px',
+                                    color: '#000',
+                                    padding: '6px 12px',
+                                    background: "linear-gradient(to bottom, #ffffff 0%, #97E646 100%)",
+                                    "&:hover": {
+                                        background: "linear-gradient(to bottom, #ffffff 0%, #b6f264 100%)",
+                                        boxShadow: 'none',
+                                    }
                                 }}
                                 onClick={() => navigate("/UserEdit")}
                             >
                                 프로필 수정
-                            </button>
+                            </Button>
                         </Box>
                     </Box>
 
@@ -128,14 +173,27 @@ function MyPage() {
                             <Typography variant="body1">{user?.posts}</Typography>
                         </Grid>
                     </Grid>
-
+                    <Divider sx={{ marginTop: 2, borderColor: '#a7a7a7ff' }} />
                     {/* 게시글 이미지 출력 */}
                     <Box sx={{ marginTop: 4 }}>
                         <Typography variant="h6" sx={{ marginBottom: 2 }}>내 게시글</Typography>
                         <ImageList variant="standard" cols={3} gap={8}>
                             {feedList.map((feed) => (
                                 feed.IMAGE_URL && (
-                                    <ImageListItem key={feed.POST_ID} sx={{ width: '100%', aspectRatio: '1 / 1' }}>
+                                    <ImageListItem
+                                        key={feed.POST_ID}
+                                        sx={{
+                                            width: '100%',
+                                            aspectRatio: '1 / 1',
+                                            borderRadius: '8px',
+                                            overflow: 'hidden',
+                                            cursor: 'pointer',
+                                            transition: 'border 0.2s ease-in-out', // 부드럽게
+                                            '&:hover': {
+                                                border: '2px solid #97E646', // 원하는 색상
+                                            }
+                                        }}
+                                    >
                                         <img
                                             src={feed.IMAGE_URL}
                                             alt={feed.CONTENT || 'feed image'}
@@ -143,12 +201,13 @@ function MyPage() {
                                             style={{
                                                 width: '100%',
                                                 height: '100%',
-                                                objectFit: 'cover', // 사진 비율 유지하면서 중앙 기준으로 잘림
-                                                borderRadius: '8px',
-                                                display: 'block'
+                                                objectFit: 'cover',
+                                                display: 'block',
                                             }}
+                                            onClick={() => navigate("/feedDetail", { state: { postId: feed.POST_ID } })}
                                         />
                                     </ImageListItem>
+
                                 )
                             ))}
                         </ImageList>

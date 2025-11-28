@@ -31,6 +31,23 @@ export default function Header() {
       console.error("검색 실패:", err);
     }
   };
+  // 로그인/로그아웃
+  const goToLoginOrLogout = () => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      // 로그인 상태 → 로그아웃 확인
+      const confirmLogout = window.confirm("로그아웃 하시겠습니까?");
+      if (confirmLogout) {
+        localStorage.removeItem("token"); // 토큰 삭제
+        alert("로그아웃 되었습니다.");
+        navigate("/login"); // 로그인 페이지 이동
+      }
+    } else {
+      // 로그인 안 되어 있음 → 로그인 페이지로 이동
+      navigate("/login");
+    }
+  };
 
 
   return (
@@ -43,18 +60,16 @@ export default function Header() {
     >
       <Toolbar sx={{ display: "flex", alignItems: "center", gap: 2 }}>
         {/* 왼쪽 로고 */}
-        <Typography
-  component="div"
-  sx={{
-    color: "#000000",
-    fontSize: 40,
-    whiteSpace: "nowrap",
-    cursor: "pointer", // 클릭 가능하게 표시
-  }}
-  onClick={() => navigate("/feed")} // 클릭 시 /feed 이동
->
-          SongNs
-        </Typography>
+        <Box
+          component="img"
+          src="/snsLogo.png"
+          sx={{
+            height: 50, // 로고 높이 조절
+            cursor: "pointer",
+          }}
+          onClick={() => navigate("/feed")} 
+        />
+
 
         {/* 검색창 */}
         <Box sx={{ display: "flex", flex: 1, maxWidth: 500 }}>
@@ -108,9 +123,9 @@ export default function Header() {
           </IconButton>
         </Box>
 
-
-        < IconButton
-          onClick={goToLogin}
+        {/* 로그인 / 로그아웃 버튼 */}
+        <IconButton
+          onClick={goToLoginOrLogout}
           sx={{
             border: "1px solid #000000",
             width: 45,
@@ -120,8 +135,9 @@ export default function Header() {
             marginLeft: "auto"
           }}
         >
-          <PersonOutlineIcon sx={{ color: "#000000", fontSize: 30, }} /> {/* 아이콘 색상 검정 */}
+          <PersonOutlineIcon sx={{ color: "#000000", fontSize: 30 }} />
         </IconButton>
+
       </Toolbar>
     </AppBar>
   );

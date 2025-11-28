@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const db = require("../db");
 const jwt = require('jsonwebtoken');
-
+const authMiddleware = require("../auth");
 // 해시 함수 실행 위해 사용할 키로 아주 긴 랜덤한 문자를 사용하길 권장하며, 노출되면 안됨.
 const JWT_KEY = "server_secret_key";
 
@@ -159,5 +159,50 @@ router.post("/updatePwd", async (req, res) => {
     }
 })
 
+// 나에게 달린 댓글 목록 불러오기(알림창 전용)
+router.get("/commentList/:userId", async (req, res) => {
+  let { userId } = req.params;
+  try {
+    let sql = "SELECT c.COMMENT_ID, c.POST_ID, c.USER_ID, u.PROFILE_IMG, u.NICKNAME, c.COMMENT, c.CREATED_AT, c.IS_READ FROM SNS_COMMENT_TBL c JOIN SNS_USER_TBL u ON c.USER_ID = u.USER_ID WHERE c.POST_ID IN (SELECT POST_ID FROM SNS_POST_TBL WHERE USER_ID = ?) ORDER BY c.CREATED_AT DESC";
+    let [list] = await db.query(sql, [userId]);
+    res.json({
+      list,
+      result: "댓글리스트 success"
+    })
 
+  } catch (error) {
+    console.log(error);
+  }
+})
+// 댓글 읽음 표시로 바꾸기
+router.post("/commentRead", async (req, res) => {
+    let { commentId } = req.body;
+    try {
+        let sql = "update sns_comment_tbl set is_read = 'Y' where comment_id = ?";
+        let result = await db.query(sql, [commentId]);
+
+        res.json({
+            result: result,
+            msg: "읽음 처리 완료"
+        });
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+// 댓글 삭제
+router.delete("/commentDelete/:commentId", authMiddleware, async (req, res) => {
+    let { commentId } = req.params;
+    try {
+        let sql = "DELETE FROM SNS_COMMENT_TBL WHERE COMMENT_ID = ?";
+        let result = await db.query(sql, [commentId]);
+        res.json({
+            result: result,
+            msg: "삭제 완료"
+
+        });
+    } catch (error) {
+        console.log(error);
+    }
+})
 module.exports = router;

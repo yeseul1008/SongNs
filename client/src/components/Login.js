@@ -28,6 +28,28 @@ function Login() {
   let userId = useRef();
   let pwd = useRef();
 
+  const handleLogin = () => {
+    const param = {
+      userId: userId.current.value,
+      pwd: pwd.current.value
+    };
+
+    fetch("http://localhost:3010/user/login", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(param)
+    })
+      .then(res => res.json())
+      .then(data => {
+        alert(data.msg);
+        if (data.result) {
+          localStorage.setItem("token", data.token);
+          navigate("/feed");
+        }
+      });
+  };
+
+
   return (
     <ThemeProvider theme={joinTheme}>
       <Box
@@ -60,7 +82,11 @@ function Login() {
             </Box>
             {/* <TextField inputRef={userId} label="Userid" variant="outlined" margin="normal" fullWidth /> */}
 
-            <TextField inputRef={pwd} label="Password" type="password" variant="outlined" margin="normal" fullWidth />
+            <TextField inputRef={pwd} label="Password" type="password" variant="outlined" margin="normal" fullWidth onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleLogin(); // 로그인 버튼과 동일한 함수 호출
+              }
+            }} />
 
 
             <Button

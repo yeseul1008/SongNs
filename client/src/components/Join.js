@@ -184,7 +184,7 @@ function Join() {
                   .then(data => {
                     console.log(data);
                     alert(data.msg);
-                    navigate("/Login");
+                    navigate("/");
                   })
 
               }}

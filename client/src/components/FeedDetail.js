@@ -8,6 +8,7 @@ export default function MusicCard() {
   const { postId } = location.state || {};
   const navigate = useNavigate();
 
+  const [sessionUserId, setSessionUserId] = useState(null); // 세션아이디
   const [post, setPost] = useState(null);
   const [liked, setLiked] = useState(false);
   const [comments, setComments] = useState([]); // 댓글 state
@@ -24,7 +25,9 @@ export default function MusicCard() {
     const min = String(date.getMinutes()).padStart(2, "0");
     return `${yyyy}.${mm}.${dd} / ${hh}:${min}`;
   };
-
+  const goToOtherUser = () => { // 유저 프로필로 이동
+    navigate("/otherUser", { state: { userId: post.USER_ID } });
+  };
   // 상세 정보 가져오기
   const fnFeedDetail = async () => {
     const token = localStorage.getItem("token");
@@ -111,6 +114,14 @@ export default function MusicCard() {
     checkLikeStatus();
   }, [postId]);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      setSessionUserId(decoded.userId);
+    }
+  }, []);
+
   if (!post) return <Typography>로딩중...</Typography>;
 
   return (
@@ -140,28 +151,104 @@ export default function MusicCard() {
         {/* 좌측 포스트 영역 */}
         <Box sx={{ flex: 2, display: "flex", flexDirection: "column", gap: 2 }}>
           {/* 카드 상단 */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Box
-              component="img"
-              src="/ummban.png"
-              alt="앨범 이미지"
-              sx={{
-                width: 50,
-                height: 50,
-                borderRadius: 2,
-                cursor: "pointer",
-                transition: "transform 0.5s ease",
-                "&:hover": { transform: "rotate(360deg)" },
-              }}
-              onClick={() => {
-                if (post.LASTFM_TRACK_ID) window.open(post.LASTFM_TRACK_ID, "_blank");
-              }}
-            />
-            <Box>
-              <Typography fontWeight="bold" fontSize={20}>{post.MUSIC_TITLE}</Typography>
-              <Typography fontWeight="bold" fontSize={14}>{post.SINGER}</Typography>
+          {/* 카드 상단 */}
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Box
+                component="img"
+                src="/ummban.png"
+                alt="앨범 이미지"
+                sx={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: 2,
+                  cursor: "pointer",
+                  transition: "transform 0.5s ease",
+                  "&:hover": { transform: "rotate(360deg)" },
+                }}
+                onClick={() => {
+                  if (post.LASTFM_TRACK_ID) window.open(post.LASTFM_TRACK_ID, "_blank");
+                }}
+              />
+              <Box>
+                <Typography fontWeight="bold" fontSize={20}>{post.MUSIC_TITLE}</Typography>
+                <Typography fontWeight="bold" fontSize={14}>{post.SINGER}</Typography>
+              </Box>
             </Box>
+
+            {/* 게시글 작성자이면 수정 버튼 표시 */}
+            {/* 게시글 작성자이면 수정/삭제 버튼 표시 */}
+            {sessionUserId === post.USER_ID && (
+              <Box sx={{ display: "flex", gap: 1 }}>
+                {/* 수정 버튼 */}
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => navigate("/editPost", { state: { postId: post.POST_ID } })}
+                  sx={{
+                    borderRadius: 2,
+                    border: "1px solid #000",
+                    textTransform: "none",
+                    fontWeight: "bold",
+                    fontSize: 12,
+                    color: "#000",
+                    "&:hover": {
+                      backgroundColor: "#f5f5f5",
+                    },
+                  }}
+                >
+                  수정
+                </Button>
+
+                {/* 삭제 버튼 */}
+                <Button
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    borderRadius: 2,
+                    textTransform: "none",
+                    fontWeight: "bold",
+                    fontSize: 12,
+                    background: "#000000",
+                    color: "#ffffff",
+                    "&:hover": {
+                      border: "#000000",
+                      backgroundColor: "#757575ff",
+                    },
+                  }}
+                  onClick={() => {
+                    if (window.confirm("게시글을 삭제하시겠습니까?")) {
+                      fetch(`http://localhost:3010/feed/postDelete/${post.POST_ID}`, {
+                        method: "DELETE",
+                        headers: {
+                          "Authorization": "Bearer " + localStorage.getItem("token")
+                        }
+                      })
+                        .then(res => res.json())
+                        .then(data => {
+                          if (data.result === "success") {
+                            alert("삭제되었습니다");
+
+                            navigate("/mypage");
+                          } else {
+                            alert(data.msg || "삭제 실패");
+                          }
+                        })
+                        .catch(err => {
+                          console.error(err);
+                          alert("서버 오류");
+                        });
+                    }
+                  }}
+
+                >
+                  삭제
+                </Button>
+              </Box>
+            )}
+
           </Box>
+
 
           {/* 카드 이미지 */}
           <Box
@@ -214,7 +301,12 @@ export default function MusicCard() {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  transition: "transform 0.2s ease", // 애니메이션
                 }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.1)"}
+                onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
+                onMouseDown={(e) => e.currentTarget.style.transform = "scale(0.9)"} // 클릭
+                onMouseUp={(e) => e.currentTarget.style.transform = "scale(1.1)"}   // 클릭 후 복귀
               >
                 <IconButton
                   sx={{
@@ -224,6 +316,7 @@ export default function MusicCard() {
                     padding: "3px",
                     background: "linear-gradient(to top, #97E646, #ffffff)",
                   }}
+                  onClick={goToOtherUser}
                 >
                   <Box
                     sx={{
@@ -238,7 +331,7 @@ export default function MusicCard() {
                     }}
                   >
                     <img
-                      src={post.PROFILE_IMG ? `http://localhost:3010${post.PROFILE_IMG}` : "/circle-icon.png"}
+                      src={post.PROFILE_IMG ? `http://localhost:3010${post.PROFILE_IMG}` : "/기본이미지.jpg"}
                       alt="유저 프로필"
                       style={{ width: "100%", height: "100%", objectFit: "cover" }}
                     />
@@ -259,20 +352,54 @@ export default function MusicCard() {
           <Typography fontWeight="bold" fontSize={18}>댓글</Typography>
 
           {comments.map((comment) => (
-            <Box key={comment.COMMENT_ID} sx={{ display: "flex", gap: 1, alignItems: "flex-start" }}>
+            <Box key={comment.COMMENT_ID} sx={{ display: "flex", gap: 1, alignItems: "flex-start", position: "relative" }}>
               <Box
                 component="img"
-                src={comment.PROFILE_IMG ? `http://localhost:3010${comment.PROFILE_IMG}` : "/circle-icon.png"}
+                src={comment.PROFILE_IMG ? `http://localhost:3010${comment.PROFILE_IMG}` : "/기본이미지.jpg"}
                 alt="댓글 프로필"
                 sx={{ width: 40, height: 40, borderRadius: "50%" }}
               />
-              <Box>
+              <Box sx={{ flex: 1 }}>
                 <Typography fontWeight="bold" fontSize={14}>{comment.NICKNAME}</Typography>
                 <Typography fontSize={13}>{comment.COMMENT}</Typography>
-                <Typography fontSize={11} color="gray">{formatDate(comment.CREATED_AT)}</Typography> {/* 날짜 추가 */}
+                <Typography fontSize={11} color="gray">{formatDate(comment.CREATED_AT)}</Typography>
               </Box>
+
+              {/* 삭제 버튼: 세션 유저와 댓글 작성자 일치 시 */}
+              {/* 삭제 버튼: 세션 유저와 댓글 작성자 OR 게시글 작성자와 같으면 */}
+              {sessionUserId === comment.USER_ID || sessionUserId === post.USER_ID ? (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    fontSize: 12,
+                    cursor: "pointer",
+                    userSelect: "none",
+                  }}
+                  onClick={() => {
+                    if (window.confirm("댓글을 삭제하시겠습니까?")) {
+                      fetch("http://localhost:3010/user/commentDelete/" + comment.COMMENT_ID, {
+                        method: "DELETE",
+                        headers: { // 외부에서 공격 막음
+                          "Authorization": "Bearer " + localStorage.getItem("token")
+                        }
+                      })
+                        .then(res => res.json())
+                        .then(data => {
+                          alert("삭제되었습니다");
+                          fnFeedComment()
+                        })
+                    }
+                  }}
+                >
+                  삭제
+                </Box>
+              ) : null}
+
             </Box>
           ))}
+
 
 
           {/* 댓글 추가 버튼 */}

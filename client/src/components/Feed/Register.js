@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { CircularProgress } from "@mui/material";
+
 import {
     TextField,
     Button,
@@ -14,6 +15,7 @@ import {
 import { PhotoCamera } from '@mui/icons-material';
 import { jwtDecode } from "jwt-decode";
 
+import { useNavigate } from "react-router-dom";
 const API_KEY = "78b9b4c52313949c2ce8178e0f9b9d46"; // Last.fm API Key
 
 function Register() {
@@ -24,33 +26,33 @@ function Register() {
     const [selectedTrack, setSelectedTrack] = useState(null);
     const [loading, setLoading] = useState(false);
 
-
+    const navigate = useNavigate();
     const handleFileChange = (event) => {
         setFiles(event.target.files);
     };
 
     // 모든 검색 결과 가져오기
     const handleSearch = async () => {
-    if (!searchQuery) return;
+        if (!searchQuery) return;
 
-    setLoading(true);
+        setLoading(true);
 
-    try {
-        const res = await fetch(
-            `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${encodeURIComponent(
-                searchQuery
-            )}&api_key=${API_KEY}&format=json&limit=100&page=1`
-        );
-        const data = await res.json();
-        const tracks = data.results.trackmatches.track;
+        try {
+            const res = await fetch(
+                `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${encodeURIComponent(
+                    searchQuery
+                )}&api_key=${API_KEY}&format=json&limit=100&page=1`
+            );
+            const data = await res.json();
+            const tracks = data.results.trackmatches.track;
 
-        setSearchResults(tracks.slice(0, 100)); // 혹시 100개 넘게 올 경우 강제 제한
-    } catch (err) {
-        console.error(err);
-    } finally {
-        setLoading(false);
-    }
-};
+            setSearchResults(tracks.slice(0, 100)); // 혹시 100개 넘게 올 경우 강제 제한
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
 
 
@@ -85,6 +87,7 @@ function Register() {
             .then(data => {
                 console.log(data);
                 alert("업로드 완료!");
+                navigate("/mypage");
             })
             .catch(err => console.error(err));
     };
@@ -129,7 +132,10 @@ function Register() {
                         onChange={handleFileChange}
                     />
                     <label htmlFor="file-upload">
-                        <IconButton color="primary" component="span">
+                        <IconButton
+                            sx={{ color: '#000' }}
+                            component="span"
+                        >
                             <PhotoCamera />
                         </IconButton>
                     </label>
@@ -144,7 +150,18 @@ function Register() {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
-                    <Button onClick={handleSearch} variant="contained">검색</Button>
+                    <Button
+                        onClick={handleSearch}
+                        variant="contained"
+                        sx={{
+                            backgroundColor: '#000',  // 검정 배경
+                            color: '#fff',            // 글씨 흰색
+                            '&:hover': {
+                                backgroundColor: '#333', // 마우스 오버 시 조금 밝게
+                            },
+                            textTransform: 'none',     // 글씨 대문자 변환 제거
+                        }}
+                    >검색</Button>
                 </Box>
                 {loading && (
                     <Box
