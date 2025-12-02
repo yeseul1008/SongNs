@@ -84,7 +84,7 @@ function FindId() {
                                 })
                                     .then(res => res.json())
                                     .then(data => {
-                                        console.log(data);
+                                        // console.log(data);
                                         if (data.result) {
                                             setFoundId(data.id);
                                             setFoundNickname(data.nickname);

@@ -23,7 +23,7 @@ export default function Header() {
       const data = await response.json();
 
       const tracks = data.results.trackmatches.track; // 검색 결과 배열
-      console.log("검색 결과:", tracks);
+      // console.log("검색 결과:", tracks);
 
       // 여기서 원하는 페이지로 이동하거나, state에 저장해서 렌더링 가능
       // 예시: searchResults state에 저장

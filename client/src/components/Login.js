@@ -106,7 +106,7 @@ function Login() {
                 })
                   .then(res => res.json())
                   .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     alert(data.msg);
                     if (data.result) {
                       localStorage.setItem("token", data.token);

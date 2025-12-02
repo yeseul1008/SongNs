@@ -25,7 +25,7 @@ function Alert() {
       fetch("http://localhost:3010/user/commentList/" + decoded.userId)
         .then(res => res.json())
         .then(data => {
-          console.log("유저가 받은 댓글:", data.list);
+          // console.log("유저가 받은 댓글:", data.list);
           setComments(data.list);   // ← 댓글 리스트 저장
         })
         .catch(err => console.error(err));

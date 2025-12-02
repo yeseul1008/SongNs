@@ -313,21 +313,26 @@ router.post("/MusicFeed", async (req, res) => {
     res.status(500).json({ message: "서버 오류" });
   }
 });
-// 게시글 삭제
+// 게시글 삭제 (좋아요 포함)
 router.delete("/postDelete/:postId", authMiddleware, async (req, res) => {
-    let { postId } = req.params;
-    try {
-        let sql = "DELETE FROM SNS_POST_TBL WHERE POST_ID = ?";
-        let result = await db.query(sql, [postId]);
-        res.json({
-            result: result,
-            msg: "삭제 완료"
+    const { postId } = req.params;
 
-        });
-    } catch (error) {
-        console.log(error);
+    try {
+        // 1. 좋아요 삭제
+        const deleteLikeSql = "DELETE FROM SNS_LIKE_TBL WHERE POST_ID = ?";
+        await db.query(deleteLikeSql, [postId]);
+
+        // 2. 게시글 삭제
+        const deletePostSql = "DELETE FROM SNS_POST_TBL WHERE POST_ID = ?";
+        await db.query(deletePostSql, [postId]);
+
+        res.json({ result: "success", msg: "게시글 및 좋아요 삭제 완료" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ result: "fail", msg: "서버 오류" });
     }
-})
+});
+
 //게시글 업로드
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

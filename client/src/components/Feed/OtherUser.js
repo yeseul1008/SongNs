@@ -173,7 +173,7 @@ function OtherUser() {
                                         chatRoomId = data.chatRoomId;
                                     }
 
-                                    console.log("생성 혹은 기존 채팅방아이디==>", chatRoomId);
+                                    // console.log("생성 혹은 기존 채팅방아이디==>", chatRoomId);
 
                                     // 채팅 팝업 열기 이벤트
                                     window.dispatchEvent(new CustomEvent('openChat', {

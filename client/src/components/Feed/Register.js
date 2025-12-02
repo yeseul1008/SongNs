@@ -86,7 +86,7 @@ function Register() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 alert("업로드 완료!");
                 navigate("/mypage");
             })

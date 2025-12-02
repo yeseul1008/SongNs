@@ -90,7 +90,7 @@ function FindPwd() {
                                         })
                                             .then(res => res.json())
                                             .then(data => {
-                                                console.log(data);
+                                                // console.log(data);
                                                 if (data.result) {
                                                     setUserIdValue(userId.current.value); // step2에서 사용할 userId 저장
                                                     setStep(2);                                                                                                
@@ -137,7 +137,7 @@ function FindPwd() {
                                             userId: userIdValue,
                                             newPwd: newPwd.current.value
                                         };
-                                        console.log(param);
+                                        // console.log(param);
                                         
                                         fetch("http://localhost:3010/user/updatePwd", {
                                             method: "POST",

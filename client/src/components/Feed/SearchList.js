@@ -26,7 +26,7 @@ function SearchList() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data.list);
+                // console.log(data.list);
                 setMusicFeedList(data.list);
             })
 

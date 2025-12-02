@@ -39,7 +39,7 @@ export default function MusicCard() {
     try {
       const res = await fetch(`http://localhost:3010/feed/detail/${postId}`);
       const data = await res.json();
-      console.log("상세정보:", data);
+      // console.log("상세정보:", data);
       if (res.ok) setPost(data.post);
     } catch (err) {
       console.error(err);
@@ -52,7 +52,7 @@ export default function MusicCard() {
     try {
       const res = await fetch(`http://localhost:3010/feed/comment/${postId}`);
       const data = await res.json();
-      console.log("댓글 리스트:", data.list);
+      // console.log("댓글 리스트:", data.list);
       if (res.ok || data.result === "success") setComments(data.list); // comments state 갱신
     } catch (err) {
       console.error(err);
@@ -228,7 +228,6 @@ export default function MusicCard() {
                         .then(data => {
                           if (data.result === "success") {
                             alert("삭제되었습니다");
-
                             navigate("/mypage");
                           } else {
                             alert(data.msg || "삭제 실패");
@@ -378,8 +377,6 @@ export default function MusicCard() {
                 <Typography fontSize={13}>{comment.COMMENT}</Typography>
                 <Typography fontSize={11} color="gray">{formatDate(comment.CREATED_AT)}</Typography>
               </Box>
-
-              {/* 삭제 버튼: 세션 유저와 댓글 작성자 일치 시 */}
               {/* 삭제 버튼: 세션 유저와 댓글 작성자 OR 게시글 작성자와 같으면 */}
               {sessionUserId === comment.USER_ID || sessionUserId === post.USER_ID ? (
                 <Box

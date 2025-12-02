@@ -43,7 +43,7 @@ function MyPage() {
             fetch("http://localhost:3010/feed/feedList/" + decoded.userId)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data.list);
+                    // console.log(data.list);
                     setFeedList(data.list); // feedList에 저장
                 });
         } else {
