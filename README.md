@@ -47,6 +47,7 @@
 | <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%EB%A9%94%EC%9D%B8%EC%95%8C%EB%9E%8C.JPG"/> | <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%EC%83%81%EC%84%B8%EB%B3%B4%EA%B8%B0.JPG" /> |
 - 좌측 사이드바 (메인, 좋아요목록, 친구목록, 나의 프로필, 설정)
 - 우측 새 댓글 알림 버튼, 새 채팅 알림 버튼 (버튼 위 알람 수 만큼 숫자 표시)
+- 상단 헤더 (로고 클릭시 메인페이지 이동, 노래검색창, 로그아웃 버튼)
 - 좋아요, 댓글 기능
 - 화살표 클릭시 Slide & Fade Card Transition로 랜덤 피드 띄우기
 - 상단 음반 이모지 클릭시 음반 돌아가며 **해당음악 정보 페이지로(Last.fm API) 이동**
@@ -74,4 +75,26 @@
 - 좋아요 누른 게시글들 카드 형태로 모아보기 음악 중점이므로 음악 정보 표시, 클릭시 해당 게시글 상세보기 이동
 - 나를 팔로우한 사람/ 내가 팔로우한 사람 분리하여 표시, 클릭시 해당 유저 프로필페이지 이동
 
+### 6. 내 프로필 / 다른 유저 프로필
+| 내 프로필 | 다른유저 프로필 |
+|---------|---------|
+| <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%EB%A7%88%EC%9D%B4%ED%8E%98%EC%9D%B4%EC%A7%80.JPG"/> | <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%EB%8B%A4%EB%A5%B8%EC%9C%A0%EC%A0%80%ED%94%84%EB%A1%9C%ED%95%84.JPG" /> |
 
+- 다른 유저 프로필페이지 들어간 경우 팔로우/팔로우 취소 가능
+- 채팅 이모지 클릭시 (채팅내역 없는경우-> 새 채팅방 생성 후 채팅 팝업, 채팅내역 존재하는 경우-> 이전 내역 불러온 후 채팅 팝업)
+
+### 7. 게시글 추가 / 프로필 수정
+| 게시글 추가 | 프로필 수정 |
+|---------|---------|
+| <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%EA%B2%8C%EC%8B%9C%EA%B8%80%20%EC%B6%94%EA%B0%80.JPG"/> | <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%ED%94%84%EB%A1%9C%ED%95%84%EC%88%98%EC%A0%95.JPG" /> |
+
+- 게시글 작성시 이미지 선택, **음악 검색 후 선택(Last.fm API 을 통해 키워드 입력 시 가수명 또는 음악 제목에 포함된 리스트 출력)**
+
+### 8. 노래 검색 / Feed, Listen 버튼
+| 노래검색 | feed |
+|---------|---------|
+| <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%EB%85%B8%EB%9E%98%EA%B2%80%EC%83%89.JPG"/> | <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%EB%85%B8%EB%9E%98%EA%B2%80%EC%83%89%EA%B2%B0%EA%B3%BC.JPG" /> |
+
+- 헤더에서 노래 검색시 **해당 키워드 관련 노래 리스트 전부 출력**
+- Feed 버튼 클릭 => 해당 음원으로 작성한 게시글 출력
+- Listen 버튼 클릭 => 해당 음원 정보 담은 **Last.fm 사이트로 이동**
