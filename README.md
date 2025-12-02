@@ -64,5 +64,14 @@
 <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%EC%B1%84%ED%8C%85.JPG"/>
 
 - **Persistent Component** 형태로 페이지 이동해도 계속 유지 
-- 채팅방 **동시 여러개 띄우기** 가능, 드래그 통해 **위치 이동** 
+- 채팅방 **동시 여러개 띄우기** 가능, 드래그 통해 **위치 이동**
+
+### 5. 좋아요목록 / 팔로우,팔로잉 목록
+| 좋아요목록 | 팔로우,팔로잉 목록 |
+|---------|---------|
+| <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%EC%A2%8B%EC%95%84%EC%9A%94%EB%AA%A9%EB%A1%9D.JPG"/> | <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%ED%8C%94%EB%A1%9C%EC%9A%B0.JPG" /> |
+
+- 좋아요 누른 게시글들 카드 형태로 모아보기 음악 중점이므로 음악 정보 표시, 클릭시 해당 게시글 상세보기 이동
+- 나를 팔로우한 사람/ 내가 팔로우한 사람 분리하여 표시, 클릭시 해당 유저 프로필페이지 이동
+
 
