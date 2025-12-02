@@ -1,9 +1,9 @@
 # 💬 SongNS
 <p align="center">
-  <img src="https://github.com/yeseul1008/react-sns-sample/blob/main/snsLogo.png" alt="SNS Logo" width="300" />
+  <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/snsLogo.png" alt="SNS Logo" width="300" />
 </p>
 
-![전체화면](https://github.com/yeseul1008/react-sns-sample/blob/main/songns.JPG)
+![전체화면](https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/songns.JPG)
 
 > "오늘을 담은 한 장의 기록, 그리고 한 곡의 사운드.
 음악으로 이어지는 나만의 SNS, 지금 시작해보세요."
@@ -32,11 +32,22 @@
 | **기타 / 도구** |![Last.fm](https://img.shields.io/badge/last.fm-D51007?style=for-the-badge&logo=last.fm&logoColor=white) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)|
 ---
 ## ✨ 페이지별 주요 기능
-### 1. 로그인/회원가입
+### 1. 로그인 / 회원가입
 
 | 로그인 | 회원가입 |
 |---------|---------|
-| <img src="https://github.com/yeseul1008/SongNs/blob/main/%EB%A1%9C%EA%B7%B8%EC%9D%B8.JPG"/> | <img src="https://github.com/yeseul1008/SongNs/blob/main/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.JPG" /> |
+| <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%EB%A1%9C%EA%B7%B8%EC%9D%B8.JPG"/> | <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.JPG" /> |
 - 아이디찾기, 비밀번호찾기
 - 비밀번호는 암호화 되어 저장
+
+### 2. 메인페이지 / 상세보기
+
+| 메인 | 상세보기 |
+|---------|---------|
+| <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%EB%A9%94%EC%9D%B81.JPG"/> | <img src="https://github.com/yeseul1008/SongNs/blob/main/readmeIMG/%EC%83%81%EC%84%B8%EB%B3%B4%EA%B8%B0.JPG" /> |
+- 좌측 사이드바 (메인, 좋아요목록, 친구목록, 나의 프로필, 설정)
+- 우측 새 댓글알람, 채팅방 알람 (버튼 위 알람 수 만큼 숫자 표시)
+- 좋아요, 댓글 기능
+- 상단 음반 이모지 클릭시 음반 돌아가며 해당음악 정보 페이지로(Last.fm API) 이동
+- 프로필 이미지 클릭시 해당 유저 프로필페이지로 이동
 
