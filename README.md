@@ -33,3 +33,10 @@
 ---
 ## ✨ 페이지별 주요 기능
 ### 1. 로그인/회원가입
+
+| 로그인 | 회원가입 |
+|---------|---------|
+| <img src="https://github.com/yeseul1008/SongNs/blob/main/%EB%A1%9C%EA%B7%B8%EC%9D%B8.JPG"/> | <img src="https://github.com/yeseul1008/SongNs/blob/main/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.JPG" /> |
+- 아이디찾기, 비밀번호찾기
+- 비밀번호는 암호화 되어 저장
+
