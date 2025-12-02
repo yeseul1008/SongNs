@@ -354,11 +354,25 @@ export default function MusicCard() {
           {comments.map((comment) => (
             <Box key={comment.COMMENT_ID} sx={{ display: "flex", gap: 1, alignItems: "flex-start", position: "relative" }}>
               <Box
-                component="img"
-                src={comment.PROFILE_IMG ? `http://localhost:3010${comment.PROFILE_IMG}` : "/기본이미지.jpg"}
-                alt="댓글 프로필"
-                sx={{ width: 40, height: 40, borderRadius: "50%" }}
-              />
+                sx={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                }}
+              >
+                <img
+                  src={comment.PROFILE_IMG ? `http://localhost:3010${comment.PROFILE_IMG}` : "/기본이미지.jpg"}
+                  alt="댓글 프로필"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover", // 원 안에서 꽉 차게 자르면서 비율 유지
+                    display: "block",
+                  }}
+                />
+              </Box>
+
               <Box sx={{ flex: 1 }}>
                 <Typography fontWeight="bold" fontSize={14}>{comment.NICKNAME}</Typography>
                 <Typography fontSize={13}>{comment.COMMENT}</Typography>

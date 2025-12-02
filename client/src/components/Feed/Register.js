@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { CircularProgress } from "@mui/material";
+import { ListItemButton } from '@mui/material';
 
 import {
     TextField,
@@ -183,11 +184,12 @@ function Register() {
                 {searchResults.length > 0 && (
                     <List sx={{ maxHeight: 300, overflow: 'auto', width: '100%', mb: 2, border: '1px solid #ddd', borderRadius: 1 }}>
                         {searchResults.map((track, idx) => (
-                            <ListItem button key={idx} onClick={() => handleSelectTrack(track)}>
+                            <ListItemButton key={idx} onClick={() => handleSelectTrack(track)}>
                                 <ListItemText primary={`${track.name} - ${track.artist}`} />
-                            </ListItem>
+                            </ListItemButton>
                         ))}
                     </List>
+
                 )}
 
                 {/* 선택된 노래 표시 */}

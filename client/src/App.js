@@ -110,7 +110,7 @@ function App() {
       {chatList.map(chat => (
         <ChatPopup
           key={chat.userId}
-          chatRoomId={chat.chatRoomId}  // ✅ chatRoomId 전달
+          chatRoomId={chat.chatRoomId}  // chatRoomId 전달
           otherUserId={chat.userId}
           otherUserNickname={chat.nickname}
           onClose={() => closeChat(chat.userId)}
