@@ -61,7 +61,7 @@ router.get("/comment/:postId", async (req, res) => {
   try {
     let sql = "SELECT * FROM SNS_COMMENT_TBL C LEFT JOIN SNS_USER_TBL U ON C.USER_ID = U.USER_ID WHERE POST_ID = ?";
     let [list] = await db.query(sql, [postId]);
-    console.log(list);
+    // console.log(list);
     res.json({
       list: list,
       result: "success"
@@ -115,7 +115,7 @@ router.get("/feedList/:userId", async (req, res) => {
   try {
     let sql = "SELECT * FROM SNS_POST_TBL WHERE USER_ID = ?";
     let [list] = await db.query(sql, [userId]);
-    console.log(list);
+    // console.log(list);
     res.json({
       list: list,
       result: "success"
@@ -185,7 +185,6 @@ router.get("/isLiked", async (req, res) => {
 // 댓글 추가
 router.post("/comment", async (req, res) => {
   let { postId, userId, content } = req.body;
-  console.log(req.body);
   try {
     let sql = "INSERT INTO SNS_COMMENT_TBL (POST_ID, USER_ID, COMMENT) VALUES (?, ?, ?)";
     let result = await db.query(sql, [postId, userId, content]);
@@ -246,7 +245,7 @@ router.post("/followCheck", async (req, res) => {
 router.post("/followCount", async (req, res) => {
   try {
     const { userId } = req.body;
-    console.log("팔로우=>", req.body);
+    // console.log("팔로우=>", req.body);
     const sql = "SELECT " +
       "    (SELECT COUNT(*) FROM SNS_FOLLOW_TBL WHERE FOLLOWER_ID = ?) AS following_cnt, " +
       "    (SELECT COUNT(*) FROM SNS_FOLLOW_TBL WHERE FOLLOWING_ID = ?) AS follower_cnt";
@@ -298,13 +297,13 @@ router.get("/followLister/:userId", async (req, res) => {
 router.post("/MusicFeed", async (req, res) => {
   try {
     const { trackName, artistName } = req.body;
-    console.log("팔로우=>", req.body);
+    // console.log("팔로우=>", req.body);
     const sql = "SELECT * FROM sns_post_tbl " +
       "WHERE LOWER(REPLACE(MUSIC_TITLE, ' ', '')) LIKE CONCAT('%', LOWER(REPLACE(?, ' ', '')), '%') " +
       "AND LOWER(REPLACE(SINGER, ' ', '')) LIKE CONCAT('%', LOWER(REPLACE(?, ' ', '')), '%')";
     const [list] = await db.execute(sql, [trackName, artistName]);
-    console.log("제목:", trackName, "가수:", artistName, "리스트:", list)
-    console.log("쿼리:", sql);
+    // console.log("제목:", trackName, "가수:", artistName, "리스트:", list)
+    // console.log("쿼리:", sql);
     res.json({
       list
     });

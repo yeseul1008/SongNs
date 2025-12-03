@@ -35,7 +35,6 @@ router.post("/checkId", async (req, res) => {
 
 router.post("/join", async (req, res) => {
     let { userId, pwd, nickName, mail } = req.body;
-    console.log(req.body);
     try {
         let hashPwd = await bcrypt.hash(pwd, 10);
         let sql = "INSERT INTO SNS_USER_TBL(USER_ID, PASSWORD, NICKNAME, EMAIL, CREATED_AT, UPDATED_AT) VALUES (?, ?, ?, ?, NOW(), NOW())";
@@ -52,7 +51,7 @@ router.post("/join", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     let { userId, pwd } = req.body;
-    console.log(req.body);
+    
     try {
 
         let sql = "SELECT * FROM SNS_USER_TBL WHERE USER_ID = ?";
@@ -144,7 +143,7 @@ router.post("/findPwd", async (req, res) => {
 })
 router.post("/updatePwd", async (req, res) => {
     let { userId, newPwd } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     try {
         let hashPwd = await bcrypt.hash(newPwd, 10);
         let sql = "UPDATE SNS_USER_TBL SET PASSWORD = ? WHERE USER_ID = ?";

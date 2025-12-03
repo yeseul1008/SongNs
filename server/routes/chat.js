@@ -126,7 +126,7 @@ router.get("/FriendList/:userId", async (req, res) => {
     "WHERE r.USER1_ID = ? OR r.USER2_ID = ? " +
     "ORDER BY m.CREATED_AT DESC";
         let [list] = await db.query(sql, [userId, userId, userId]);
-        console.log("친구채팅==>", list);
+        // console.log("친구채팅==>", list);
         res.json({
             list,
             result: "채팅리스트 success"
