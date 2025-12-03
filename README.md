@@ -13,8 +13,7 @@
 - SongNS는 사용자가 하루와 어울리는 음악을 검색하고, 그 음악과 함께 사진·텍스트를 기록해 **뮤직카드**로 만들어 공유할 수 있는 SNS 플랫폼입니다.
 - 단순히 게시글을 올리는 것이 아니라, 오늘의 감정과 분위기에 맞는 음악 한 곡을 함께 기록함으로써 더 깊이 있는 나만의 스토리를 남길 수 있는 서비스입니다.
 
- ⬇ 클릭시 시연 영상 재생  
-[![영상 보기](https://img.icons8.com/ios-filled/100/000000/video.png)](https://drive.google.com/file/d/1B5oUrT8ig1xukhy-vZj4sYXyKR1Dc7ey/view?usp=sharing)  
+[📹 시연 영상 보기](https://drive.google.com/uc?export=preview&id=1B5oUrT8ig1xukhy-vZj4sYXyKR1Dc7ey)
 
 ---
 ## 📅 개발기간
